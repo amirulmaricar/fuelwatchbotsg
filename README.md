@@ -21,7 +21,7 @@ A simple telegram bot built with [python-telegram-bot](https://github.com/python
 - /shutdown        (Shutdown Server remotely)
 
 ### Requirements
-Linux Instance 
+Linux Instance
 Telegram App
 
 ### Setup Config
