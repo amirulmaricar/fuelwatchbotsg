@@ -1,7 +1,7 @@
-# fuelWatchBotSG *Work in progress
+# Fuel Watch Bot (SG)
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# A Simple way to send a message to telegram
+
 import telegram
 from telegram import MessageEntity, TelegramObject, ChatAction, Location, ReplyKeyboardMarkup, ReplyKeyboardRemove
 import telegram.ext
@@ -16,6 +16,7 @@ from dateutil.relativedelta import relativedelta
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from PIL import Image
 from subprocess import call
+from emoji import emojize
 
 import numpy as np
 import argparse
@@ -45,16 +46,10 @@ logger = logging.getLogger('root')
 logger.info("Running "+sys.argv[0])
 
 """
-# Mongodb 
-"""
-#client  = MongoClient('mongodb://localhost:27017')
-#db      = client.natalia_tg_bot
-
-
-"""
 #	Load the config file
 #	Set the Botname / Token
 """
+log_file = PATH+'/localDataBase.txt'
 config_file = PATH+'/config.yaml'
 my_file     = Path(config_file)
 if my_file.is_file():
@@ -88,7 +83,7 @@ with open(filename, "rt", encoding='utf8') as f:
         count = 0
         for row in reader:
             price_list[count] = row
-            count =count +1
+            count = count +1
             print (row)
         msg = "\n"
         for k in range(0, 16):
@@ -173,14 +168,12 @@ def get_url(url):
 	print (content)
 	js = json.loads(content)
 	return js
+
 # Local DataBase logger
 def log(info):
- 	#db = open("/home/dinboy/fuelwatchbotsg-master/localDataBase.txt","a+")
-	db = open("/home/pi/fuelwatchbotsg-master/localDataBase.txt","a+")
+	db = open(log_file,"a+")
 	db.write("\n" + str(info))
 	db.close()
-	#db.write(str(info)) #https://www.guru99.com/reading-and-writing-files-in-python.html
-	#db.pm_requests.insert(info)
 
 # Welcome message 
 def start(bot, update):
@@ -236,13 +229,15 @@ def price(bot, update):
 	logger.info("/price - "+name)
 	timestamp = datetime.datetime.utcnow()
 	info = { 'user_name': name ,'user_id': user_id, 'request': 'price', 'timestamp': timestamp }
-	log(info)
-	msg = "*FuelWatchSGBot Price*\n"
+
+	msg = "<b>Fuel Watch (SG) Bot Price</b>\n"
 	print (price_list[3])
 	msg += price_list[3]
 	msg += "\n /start - to go back to home"
+	
+	log(info)
+
 	bot.sendMessage(chat_id=chat_id,text=msg,parse_mode="HTML",disable_web_page_preview=1)
-	#ScrapData_JSON = get_url(URL)
 	
 	
 #info abot the admins
@@ -258,7 +253,7 @@ def admins(bot, update):
 	        msg = random.choice(MESSAGES['pmme']) % (name)
 	        bot.sendMessage(chat_id=chat_id,text=msg,reply_to_message_id=message_id, parse_mode="Markdown",disable_web_page_preview=1) 
 	else:
-	        msg = "*FuelWatchSGBot Admins*\n\n"
+	        msg = "*Fuel Watch Bot (SG) Admins*\n\n"
 	        keys = list(ADMINS_JSON.keys())
 	        random.shuffle(keys)
 	        for k in keys: 
@@ -323,10 +318,10 @@ def location_checker(bot, update):
 	            print (locationHolder[user_id][0] ,  locationHolder[user_id][1])
 	        else:
 	            bot.sendMessage(chat_id=chat_id,text="Please share your location to find nearest petrol stations.",parse_mode="Markdown",disable_web_page_preview=1)
-	            location_keyboard = telegram.KeyboardButton(text="Send Location", request_location=True)
+	            location_keyboard = telegram.KeyboardButton(text="Send Location",request_contact=None, request_location=True)
 	            custom_keyboard = [[ location_keyboard]]
 	            reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
-	            bot.send_message(chat_id=chat_id,text="Would you mind sharing your location with me?",reply_markup=reply_markup)
+	            bot.send_message(chat_id=chat_id,text="Do you mind sharing your location with me?",reply_markup=reply_markup)
 
 
 def nearest(bot, update):
@@ -565,11 +560,11 @@ def getlog(bot,update):
     ip_address = s.getsockname()[0]
     s.close()
     #Database update
-    db = open("/home/pi/fuelwatchbotsg-master/localDataBase.txt","a+")
+    db = open(log_file,"a+")
     db.write("Admin Request: Telebot is up with a IP Address of:" + ip_address)
     db.close()
     chat_id = update.message.chat.id
-    bot.sendDocument(chat_id=chat_id, document=open('/home/pi/fuelwatchbotsg-master/localDataBase.txt', 'rb'))	
+    bot.sendDocument(chat_id=chat_id, document=open(log_file, 'rb'))	
 
 	
 #################### End of Admin commands

@@ -22,7 +22,7 @@ MESSAGES:
 
   # The 'welcome' message when users first initiate pm with the bot
   start: >
-   Hi %s, Welcome to Fuel Watch Bot (SG)
+   Hi %s, Welcome to *Fuel Watch Bot (SG)*
    This are the commands I currently support:
 
    1) /start - Welcome console
@@ -35,17 +35,17 @@ MESSAGES:
 
    5) /price - Get todays' petrol price list
 
-   6) /nearest - Get the nearest 5 petrol station
+   6) /nearest - Lists the nearest 5 petrol station
 
-   7) /nearestspc - List nearest 5 SPC petrol station
+   7) /nearestspc - Lists the nearest 5 SPC petrol station
 
-   8) /nearestshell -List nearest 5 Shell petrol station
+   8) /nearestshell -Lists the nearest 5 Shell petrol station
 
-   9) /nearestcal - List nearest 5 Caltex petrol station
+   9) /nearestcal - Lists the nearest 5 Caltex petrol station
 
-   10) /nearestesso - List nearest 5 Esso petrol station
+   10) /nearestesso - Lists the nearest 5 Esso petrol station
 
-   11) /comment - Leave your Feedback
+   11) /comment - Leave your feedback
 
   # The 'admin' extra control pannel welcome message
   admin_start: >
@@ -60,7 +60,7 @@ MESSAGES:
    *ABOUT US*
 
 
-   *Fuel Watch Bot(SG)* is a simple bot that bring you the latest updates of Singapore's petrol price. Compare petrol price offered by different petrol companies! We support all major brands and fuel types.
+   *Fuel Watch Bot (SG)* is a simple bot that bring you the latest updates of Singapore's petrol price. Compare petrol price offered by different petrol companies! We support all major brands and fuel types.
 
 
    Bot features
@@ -81,7 +81,7 @@ MESSAGES:
    4) Caltex
 
 
-   '#' All data are best effort.
+   _All data are best effort._
 
 
    /start - to go back to home
@@ -90,18 +90,23 @@ MESSAGES:
   # JSon list of admins for the '/admins' request page
   admins_json:
     "@DineshDurai":
-      adminOf: "Telegram API and Google API"
-      about  : "this is blah about Dinesh."
-    "@Amirul":
-      adminOf: "Database and Data Collection"
-      about  : "this is blah about Amirul."
+      adminOf: "API + Testing"
+      about: "Core Developer"
+
+    "@amirulmaricar":
+      adminOf: "Product Data + Integrator"
+      about: "Core Developer"
+
 
   # Teamspeak info request 
   comment: > 
-   Pls Send your comments directly to the admins or to the github page: 
+   Please raise an issue on our github page if you have any comments: 
 
-   https://github.com/E0191729/fuelwatchbotsg/issues .
+   https://github.com/E0191729/fuelwatchbotsg/issues 
 
+   Alternatively you could send a message to our admins:
+
+   /admins
    
    /start - to go back to home
 
